@@ -1,45 +1,46 @@
-https://www.edx.org/school/mitx# datagov-website
+https://www.edx.org/school/mitx
+# datagov-website
 
 A static version of www.data.gov.
 
-## Usage
+# Usage
 
 
-## Development
+# Development
 
-### Requirements
+# Requirements
 
 - [Ruby](https://www.ruby-lang.org/en/) 2.7
 - [Bundler](https://bundler.io/)
 - Node.js
 
 
-### Setup
+# Setup
 
-Install the dependencies.
+#Install the dependencies.
 
     $ npm run setup
 
-Build the Jekyll site.
+#Build the Jekyll site.
 
     $ npm run build
 
-Serve the site locally.
+#Serve the site locally.
 
     $ npm start
 
-Open your web browser to [localhost:4000](http://localhost:4000/).
+#Open your web browser to [localhost:4000](http://localhost:4000/).
 
-Run some checks.
+#Run some checks.
 
     $ npm run lint
 
-## www-redirects
+#www-redirects
 
 A tiny nginx application that redirects URLs from our subdomains to data.gov.
 
 
-### Services
+# Services
 
 These services are required for www-redirects.
 
@@ -48,7 +49,7 @@ Service | Type | Plan | Description
 www-redirects-domains | external-domain | domain | Routes \*.data.gov domains to the application 
 
 
-#### External domain service
+# External domain service
 
 The [external domain service](https://cloud.gov/docs/services/external-domain-service/) provides the domain routes and TLS for \*.data.gov. 
 
@@ -83,7 +84,7 @@ Create routes for each domain. Note that when [gsa/datagov-deploy#3573](https://
     $ cf map-route www-redirects www.data.gov
 
 
-### Continuous Delivery
+# Continuous Delivery
 
 The www-redirects application is automatically deployed from CI. Make sure to
 create deployer secrets.
@@ -92,5 +93,48 @@ Secret | Description | Where to find?
 ------ | ----------- | --------------
 CF_SERVICE_USER | The deployer username. | cf service-key
 CF_SERVICE_AUTH | The deployer password. | cf service-key
+#https://www.notion.so/etherscan-io-error-e-5-t-404-32b23f680b1781978b37ddf968291267?source=copy_link
+#class RegistryHandler {
+  constructor(owner = "Mr. Thanawut Choeytherdwong") {
+    this.owner = owner;
+    this.registryLog = [];
+  }
 
+  logConflict(conflictType, details = "") {
+    const record = {
+      type: conflictType,
+      details: details,
+      owner: this.owner,
+      timestamp: new Date().toISOString()
+    };
+    this.registryLog.push(record);
+
+    return `🔮 Ceremonial Notice: ${conflictType} recorded as Knowledge Asset`;
+  }
+
+  safeDivide(a, b) {
+    try {
+      if (b === 0) throw new Error("Division by zero");
+      return a / b;
+    } catch (err) {
+      return this.logConflict("Division Conflict", err.message);
+    }
+  }
+
+  safeOperation(callback) {
+    try {
+      return callback();
+    } catch (err) {
+      return this.logConflict("Registry Conflict", err.message);
+    }
+  }
+}
+
+// 🔧 Example Usage
+const registry = new RegistryHandler();
+
+console.log(registry.safeDivide(10, 2));   // ✅ Normal result: 5
+console.log(registry.safeDivide(10, 0));   // 🔮 Ceremonial Notice: Division Conflict recorded
+console.log(registry.safeOperation(() => JSON.parse("invalid"))); 
+// 🔮 Ceremonial Notice: Registry Conflict recorded
 
